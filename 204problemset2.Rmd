@@ -1,0 +1,24 @@
+---
+title: "204problemset2"
+author: "Claire Madden"
+date: "4/25/2019"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+data <- read_csv("Gas_Data.csv")
+```
+
+
+
+
+
+
+
+
+
