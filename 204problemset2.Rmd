@@ -10,12 +10,59 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+#set up 
 library(tidyverse)
-data <- read_csv("Gas_Data.csv")
+
+#read in data
+gasdata <- read_csv("Gas_Data.csv")
+
+#change column headers to be more simple
+names(gasdata) <- c("price", "q_low", "q_high")
+
+
 ```
 
 
+1. What is the aggregate daily demand curve for gasoline in France? What is the supply curve for gasoline? What is the “benefit” to consumers under the status quo? What is the “benefit” to producers under the status quo? What is the environmental cost under the status quo?
 
+```{r}
+#need to find: high demand curve, low demand curve, aggregate demand curve, supply curve (mpc), environmental cost curve (mec), 
+
+#high demand curve:
+
+d_high <- lm(price ~ q_high, data = gasdata)
+summary(d_high)
+#p=a(q)+b
+#p= -0.0001297(q) + 23.39
+
+#saving output numbers for use later
+a_high <- d_high$coefficients[2]
+b_high <- d_high$coefficients[1]
+
+
+#low demand curve:
+
+d_low <- lm(price ~ q_low, data = gasdata)
+summary(d_low)
+#p=a(q)+b
+#p= -0.0001355(q) + 21.99
+
+#saving output numbers for use later
+a_low <- d_low$coefficients[2]
+b_low <- d_low$coefficients[1]
+
+
+
+
+#need to know what q equals when p is 21.99085 for aggregate demand curve
+
+
+
+
+#supply curve (mpc)
+#p
+
+```
 
 
 
