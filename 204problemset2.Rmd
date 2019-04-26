@@ -28,7 +28,7 @@ names(gasdata) <- c("price", "q_low", "q_high")
 ```{r}
 #need to find: high demand curve, low demand curve, aggregate demand curve, supply curve (mpc), environmental cost curve (mec), 
 
-#high demand curve:
+#high linear model demand curve:
 
 d_high <- lm(price ~ q_high, data = gasdata)
 summary(d_high)
@@ -38,6 +38,10 @@ summary(d_high)
 #saving output numbers for use later
 a_high <- d_high$coefficients[2]
 b_high <- d_high$coefficients[1]
+
+#high demand curve function
+demand_high <- function(x){a_high*x + b_high}
+
 
 
 #low demand curve:
@@ -51,6 +55,18 @@ summary(d_low)
 a_low <- d_low$coefficients[2]
 b_low <- d_low$coefficients[1]
 
+#low demand curve function
+
+demand_low <- function(x){a_low*x + b_low}
+
+#graph both demand functions on the same axes
+highlowdemand <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
+  stat_function(fun = demand_low, color = "cadetblue3") +
+  stat_function(fun = demand_high, color = "red3")+
+  scale_y_continuous(limits = c(0,30), expand = c(0,0))+
+  scale_x_continuous(limits = c(0,200000), expand = c(0,0))
+
+highlowdemand
 
 
 
