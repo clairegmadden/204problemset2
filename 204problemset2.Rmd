@@ -66,20 +66,6 @@ a_low1 <- (1/a_low)
 b_low1 <- (-b_low/a_low)
 
 
-#graph both demand functions on the same axes
-highlowdemand <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
-  stat_function(fun = demand_low, color = "cadetblue4") +
-  stat_function(fun = demand_high, color = "orchid4")+
-  stat_function(fun = agg_demand, color = "tomato3")+
-  stat_function(fun = mec, color = "turquoise")+
-  stat_function(fun = msc, color = "gold")+
-  stat_function(fun = supply_curve, color = "olivedrab4")+
-  scale_y_continuous(limits = c(0,30), expand = c(0,0))+
-  scale_x_continuous(limits = c(0,400000), expand = c(0,0))
-
-
-
-highlowdemand
 
 
 #combine high and low variables to get aggregate 
@@ -106,6 +92,23 @@ mec <- function(x){0*x + 2}
 
 #social cost
 msc <- function(x){supply*x + 2}
+
+
+#graph both demand functions on the same axes
+highlowdemand <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
+  stat_function(fun = demand_low, color = "cadetblue4") +
+  stat_function(fun = demand_high, color = "orchid4")+
+  stat_function(fun = agg_demand, color = "tomato3")+
+  stat_function(fun = mec, color = "turquoise")+
+  stat_function(fun = msc, color = "gold")+
+  stat_function(fun = supply_curve, color = "olivedrab4")+
+  scale_y_continuous(limits = c(0,30), expand = c(0,0))+
+  scale_x_continuous(limits = c(0,400000), expand = c(0,0))
+
+
+
+
+highlowdemand
 
 ```
 
