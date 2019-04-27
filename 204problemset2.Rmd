@@ -155,9 +155,72 @@ int_supp_highd_q <- int_supp_aggd$x
 int_supp_highd_p <- int_supp_aggd$y
 
 
+#intersection of msc and agg demand
+
+int_msc_aggd <- curve_intersect(msc, agg_demand, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_msc_aggd
+                                
+int_msc_aggd_q <- int_msc_aggd$x
+
+int_msc_aggd_p <- int_msc_aggd$y
+
+
 ```
 
 
+```{r}
+#low demand benefit under status quo
 
+base_cs_low <- b_low - int_supp_lowd_p
+height_cs_low <- int_supp_lowd_q
+
+cs_low <- (1/2)*base_cs_low*height_cs_low
+
+cs_low
+
+
+base_ps_low <- int_supp_lowd_p
+height_ps_low <- int_supp_lowd_q
+
+ps_low <- (1/2)*base_ps_low*height_ps_low
+
+ps_low
+
+
+#high demand benefit under status quo
+
+base_cs_high <- b_high - int_supp_highd_p
+height_cs_high <- int_supp_highd_q
+
+cs_high <- (1/2)*base_cs_high*height_cs_high
+
+cs_high
+
+
+base_ps_high <- int_supp_highd_p
+height_ps_high <- int_supp_highd_q
+
+ps_high <- (1/2)*base_ps_high*height_ps_high
+
+ps_high
+
+
+
+```
+
+```{r}
+#environmental cost under status quo
+
+base_tec <- int_msc_aggd_q
+height1_tec <- 2
+height2_tec <- int_msc_aggd_p
+
+tec <- base_tec*((height1_tec+height2_tec)/2)
+
+tec
+
+
+```
 
 
