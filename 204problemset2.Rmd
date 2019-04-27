@@ -40,7 +40,7 @@ a_high <- d_high$coefficients[2]
 b_high <- d_high$coefficients[1]
 
 #high demand curve function p=a*q+b
-pdemand_high <- function(x){a_high*x + b_high}
+demand_high <- function(x){a_high*x + b_high}
 
 #variables for high demand curve q=p/a - b/a
 a_high1 <- (1/a_high)
@@ -59,7 +59,7 @@ a_low <- d_low$coefficients[2]
 b_low <- d_low$coefficients[1]
 
 #low demand curve function p=a*q+b
-pdemand_low <- function(x){a_low*x + b_low}
+demand_low <- function(x){a_low*x + b_low}
 
 #variables for low demand curve q=p/a - b/a
 a_low1 <- (1/a_low)
@@ -111,9 +111,7 @@ msc <- function(x){supply*x + 2}
 
 ```{r}
 
-kink <- curve_intersect(agg_demand, demand_high, empirical = FALSE)
-
-
+kink <- uniroot(function(x) agg_demand(x) - demand_high(x), range(x))
 
 ```
 
