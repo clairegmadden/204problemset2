@@ -26,7 +26,7 @@ names(gasdata) <- c("price", "q_low", "q_high")
 1. What is the aggregate daily demand curve for gasoline in France? What is the supply curve for gasoline? What is the “benefit” to consumers under the status quo? What is the “benefit” to producers under the status quo? What is the environmental cost under the status quo?
 
 ```{r}
-#need to find: high demand curve, low demand curve, aggregate demand curve, supply curve (mpc), environmental cost curve (mec), 
+#need to find: high demand curve, low demand curve, aggregate demand curve, supply curve (mpc), environmental cost curve (mec) 
 
 #high linear model demand curve:
 
@@ -39,9 +39,12 @@ summary(d_high)
 a_high <- d_high$coefficients[2]
 b_high <- d_high$coefficients[1]
 
-#high demand curve function
-demand_high <- function(x){a_high*x + b_high}
+#high demand curve function p=a*q+b
+pdemand_high <- function(x){a_high*x + b_high}
 
+#variables for high demand curve q=p/a - b/a
+a_high1 <- (1/a_high)
+b_high1 <- (-b_high/a_high)
 
 
 #low demand curve:
@@ -55,31 +58,64 @@ summary(d_low)
 a_low <- d_low$coefficients[2]
 b_low <- d_low$coefficients[1]
 
-#low demand curve function
+#low demand curve function p=a*q+b
+pdemand_low <- function(x){a_low*x + b_low}
 
-demand_low <- function(x){a_low*x + b_low}
+#variables for low demand curve q=p/a - b/a
+a_low1 <- (1/a_low)
+b_low1 <- (-b_low/a_low)
+
 
 #graph both demand functions on the same axes
 highlowdemand <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
-  stat_function(fun = demand_low, color = "cadetblue3") +
-  stat_function(fun = demand_high, color = "red3")+
+  stat_function(fun = demand_low, color = "cadetblue4") +
+  stat_function(fun = demand_high, color = "orchid4")+
+  stat_function(fun = agg_demand, color = "tomato3")+
+  stat_function(fun = mec, color = "turquoise")+
+  stat_function(fun = msc, color = "gold")+
+  stat_function(fun = supply_curve, color = "olivedrab4")+
   scale_y_continuous(limits = c(0,30), expand = c(0,0))+
-  scale_x_continuous(limits = c(0,200000), expand = c(0,0))
+  scale_x_continuous(limits = c(0,400000), expand = c(0,0))
+
+
 
 highlowdemand
 
 
+#combine high and low variables to get aggregate 
+a_agg <- a_high1 + a_low1
+b_agg <- b_high1 + b_low1
+
+#rearrage to get p=
+a_agg1 <- (1/a_agg)
+b_agg1 <- (-b_agg/a_agg)
+
+agg_demand <- function(x){a_agg1*x + b_agg1}
 
 #need to know what q equals when p is 21.99085 for aggregate demand curve
 
 
-
-
 #supply curve (mpc)
-#p
+supply <- 5/((5-b_agg1)/(a_agg1))
+
+#supply function
+supply_curve <- function(x){supply*x}
+
+#environmental cost
+mec <- function(x){0*x + 2}
+
+#social cost
+msc <- function(x){supply*x + 2}
 
 ```
 
+```{r}
+
+kink <- curve_intersect(agg_demand, demand_high, empirical = FALSE)
+
+
+
+```
 
 
 
