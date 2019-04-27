@@ -112,8 +112,10 @@ allcurves
 ```
 
 ```{r}
-x_range <- 0:200000
 
+x_range <- 0:500000
+
+#intersection of aggregate demand and high demand curves
 kink <- curve_intersect(agg_demand, demand_high, empirical = FALSE, domain = c(min(x_range), max(x_range))) 
 
 kink
@@ -121,6 +123,26 @@ kink
 kink_q <- kink$x
 
 kink_p <- kink$y
+
+#intersection of supply and high demand
+int_supp_highd <- curve_intersect(supply_curve, demand_high, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_supp_highd
+
+int_supp_highd_q <- int_supp_highd$x
+
+int_supp_highd_p <- int_supp_highd$y
+
+#intersection of supply and low demand
+
+int_supp_lowd <- curve_intersect(supply_curve, demand_low, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_supp_lowd
+
+int_supp_lowd_q <- int_supp_lowd$x
+
+int_supp_lowd_p <- int_supp_lowd$y
+
 
 
 
