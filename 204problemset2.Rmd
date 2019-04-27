@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 #set up 
 library(tidyverse)
+library(reconPlots)
 
 #read in data
 gasdata <- read_csv("Gas_Data.csv")
@@ -95,7 +96,7 @@ msc <- function(x){supply*x + 2}
 
 
 #graph both demand functions on the same axes
-highlowdemand <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
+allcurves <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
   stat_function(fun = demand_low, color = "cadetblue4") +
   stat_function(fun = demand_high, color = "orchid4")+
   stat_function(fun = agg_demand, color = "tomato3")+
@@ -106,15 +107,22 @@ highlowdemand <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
   scale_x_continuous(limits = c(0,400000), expand = c(0,0))
 
 
-
-
-highlowdemand
+allcurves
 
 ```
 
 ```{r}
+x_range <- 0:200000
 
-kink <- uniroot(function(x) agg_demand(x) - demand_high(x), range(x))
+kink <- curve_intersect(agg_demand, demand_high, empirical = FALSE, domain = c(min(x_range), max(x_range))) 
+
+kink
+
+kink_q <- kink$x
+
+kink_p <- kink$y
+
+
 
 ```
 
