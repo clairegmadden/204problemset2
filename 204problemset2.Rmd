@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 #set up 
 library(tidyverse)
+library(rootSolve)
 
 #read in data
 gasdata <- read_csv("Gas_Data.csv")
