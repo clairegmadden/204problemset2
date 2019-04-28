@@ -12,7 +12,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 #set up 
 library(tidyverse)
+<<<<<<< HEAD
 library(rootSolve)
+=======
+library(reconPlots)
+>>>>>>> c016a63e9f2db5895d28ddb36cde961670116e82
 
 #read in data
 gasdata <- read_csv("Gas_Data.csv")
@@ -67,20 +71,6 @@ a_low1 <- (1/a_low)
 b_low1 <- (-b_low/a_low)
 
 
-#graph both demand functions on the same axes
-highlowdemand <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
-  stat_function(fun = demand_low, color = "cadetblue4") +
-  stat_function(fun = demand_high, color = "orchid4")+
-  stat_function(fun = agg_demand, color = "tomato3")+
-  stat_function(fun = mec, color = "turquoise")+
-  stat_function(fun = msc, color = "gold")+
-  stat_function(fun = supply_curve, color = "olivedrab4")+
-  scale_y_continuous(limits = c(0,30), expand = c(0,0))+
-  scale_x_continuous(limits = c(0,400000), expand = c(0,0))
-
-
-
-highlowdemand
 
 
 #combine high and low variables to get aggregate 
@@ -108,15 +98,133 @@ mec <- function(x){0*x + 2}
 #social cost
 msc <- function(x){supply*x + 2}
 
+
+#graph both demand functions on the same axes
+allcurves <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
+  stat_function(fun = demand_low, color = "cadetblue4") +
+  stat_function(fun = demand_high, color = "orchid4")+
+  stat_function(fun = agg_demand, color = "tomato3")+
+  stat_function(fun = mec, color = "turquoise")+
+  stat_function(fun = msc, color = "gold")+
+  stat_function(fun = supply_curve, color = "olivedrab4")+
+  scale_y_continuous(limits = c(0,30), expand = c(0,0))+
+  scale_x_continuous(limits = c(0,400000), expand = c(0,0))
+
+
+allcurves
+
 ```
 
 ```{r}
 
-kink <- uniroot(function(x) agg_demand(x) - demand_high(x), range(x))
+x_range <- 0:500000
+
+#intersection of aggregate demand and high demand curves
+kink <- curve_intersect(agg_demand, demand_high, empirical = FALSE, domain = c(min(x_range), max(x_range))) 
+
+kink
+
+kink_q <- kink$x
+
+kink_p <- kink$y
+
+#intersection of supply and high demand
+int_supp_highd <- curve_intersect(supply_curve, demand_high, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_supp_highd
+
+int_supp_highd_q <- int_supp_highd$x
+
+int_supp_highd_p <- int_supp_highd$y
+
+#intersection of supply and low demand
+
+int_supp_lowd <- curve_intersect(supply_curve, demand_low, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_supp_lowd
+
+int_supp_lowd_q <- int_supp_lowd$x
+
+int_supp_lowd_p <- int_supp_lowd$y
+
+
+#intersection of supply and agg demand
+
+int_supp_aggd <- curve_intersect(supply_curve, agg_demand, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_supp_aggd
+
+int_supp_highd_q <- int_supp_aggd$x
+
+int_supp_highd_p <- int_supp_aggd$y
+
+
+#intersection of msc and agg demand
+
+int_msc_aggd <- curve_intersect(msc, agg_demand, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_msc_aggd
+                                
+int_msc_aggd_q <- int_msc_aggd$x
+
+int_msc_aggd_p <- int_msc_aggd$y
+
 
 ```
 
 
+```{r}
+#low demand benefit under status quo
 
+base_cs_low <- b_low - int_supp_lowd_p
+height_cs_low <- int_supp_lowd_q
+
+cs_low <- (1/2)*base_cs_low*height_cs_low
+
+cs_low
+
+
+base_ps_low <- int_supp_lowd_p
+height_ps_low <- int_supp_lowd_q
+
+ps_low <- (1/2)*base_ps_low*height_ps_low
+
+ps_low
+
+
+#high demand benefit under status quo
+
+base_cs_high <- b_high - int_supp_highd_p
+height_cs_high <- int_supp_highd_q
+
+cs_high <- (1/2)*base_cs_high*height_cs_high
+
+cs_high
+
+
+base_ps_high <- int_supp_highd_p
+height_ps_high <- int_supp_highd_q
+
+ps_high <- (1/2)*base_ps_high*height_ps_high
+
+ps_high
+
+
+
+```
+
+```{r}
+#environmental cost under status quo
+
+base_tec <- int_msc_aggd_q
+height1_tec <- 2
+height2_tec <- int_msc_aggd_p
+
+tec <- base_tec*((height1_tec+height2_tec)/2)
+
+tec
+
+
+```
 
 
