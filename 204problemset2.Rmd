@@ -324,7 +324,55 @@ a. Overall welfare of “High” income consumers
 b. Overall welfare of “Low” income consumers
 c. Gas producers
 
+5. Finally, assume that electric cars will gain popularity and that in the future this
+will lower the demand curves of all income groups by half (vertically). Under these new demand curves, what are the effects on:
+a. Gas consumption by “High” income consumers
+b. Gas consumption by “Low” income consumers
+c. Gas price
+d. Environmental damage from gasoline
 
+```{r}
+
+#lower demand curves by half vertically
+
+half_demand_high <- function(x){a_high*x + 0.5*b_high}
+
+half_demand_low <- function(x){a_low*x + 0.5*b_low}
+
+half_agg_demand <- function(x){a_agg1*x + 0.5*b_agg1}
+
+#intersect new high demand and supply with tax
+
+int_tax_half_high_demand <- curve_intersect(supply_tax, half_demand_high, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_tax_half_high_demand
+
+#gas consumption by high demand
+int_tax_half_high_demand_q <- int_tax_half_high_demand$x
+
+
+#intersect new low demand and supply with tax
+int_tax_half_low_demand <- curve_intersect(supply_tax, half_demand_low, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_tax_half_low_demand
+
+#gas consumption by low demand
+int_tax_half_low_demand_q <- int_tax_half_low_demand$x
+
+#intersect agg demand and supply with tax
+int_tax_half_agg_demand <- curve_intersect(supply_tax, half_agg_demand, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_tax_half_agg_demand
+
+#gas price at new equilibrium
+int_tax_half_agg_demand_p <- int_tax_half_agg_demand$y
+
+
+```
+
+
+
+6. Using these numbers, which has a bigger impact on environmental quality, a $2.00/gal. gas tax or the invention of electric cars? Provide your evidence.
 
 
 
