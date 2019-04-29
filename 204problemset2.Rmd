@@ -330,10 +330,32 @@ c. Gas producers
 
 supply_2tax <- function(x){supply*x + 2}
 
+#wellfare high income
 
+int_high_2tax <- curve_intersect(supply_2tax, demand_high, empirical = FALSE, domain = c(min(x_range), max(x_range)))
 
+int_high_2tax_q <- int_high_2tax$x
+int_high_2tax_p <- int_high_2tax$y
 
+base_high_2tax <- b_high - int_high_2tax_p
+height_high_2tax <- int_high_2tax_q
 
+cs_high_2tax <- (1/2)*base_high_2tax*height_high_2tax
+
+cs_high_2tax
+
+#wellfare low income 
+int_low_2tax <- curve_intersect(supply_2tax, demand_low, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_low_2tax_q <- int_low_2tax$x
+int_low_2tax_p <- int_low_2tax$y
+
+base_low_2tax <- b_low - int_low_2tax_p
+height_low_2tax <- int_low_2tax_q
+
+cs_low_2tax <- ((1/2)*base_low_2tax*height_low_2tax) - tec_half_demand
+
+cs_low_2tax
 
 ```
 
