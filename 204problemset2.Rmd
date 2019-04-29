@@ -328,6 +328,9 @@ a. Overall welfare of “High” income consumers
 b. Overall welfare of “Low” income consumers
 c. Gas producers
 
+
+
+
 5. Finally, assume that electric cars will gain popularity and that in the future this
 will lower the demand curves of all income groups by half (vertically). Under these new demand curves, what are the effects on:
 a. Gas consumption by “High” income consumers
@@ -351,7 +354,7 @@ int_tax_half_high_demand <- curve_intersect(supply_tax, half_demand_high, empiri
 
 int_tax_half_high_demand
 
-#gas consumption by high demand
+#a. gas consumption by high demand
 int_tax_half_high_demand_q <- int_tax_half_high_demand$x
 
 
@@ -360,7 +363,7 @@ int_tax_half_low_demand <- curve_intersect(supply_tax, half_demand_low, empirica
 
 int_tax_half_low_demand
 
-#gas consumption by low demand
+#b. gas consumption by low demand
 int_tax_half_low_demand_q <- int_tax_half_low_demand$x
 
 #intersect agg demand and supply with tax
@@ -368,9 +371,20 @@ int_tax_half_agg_demand <- curve_intersect(supply_tax, half_agg_demand, empirica
 
 int_tax_half_agg_demand
 
-#gas price at new equilibrium
+#c. gas price at new equilibrium - where aggregate demand (reduced by half) intersects supply with tax
 int_tax_half_agg_demand_p <- int_tax_half_agg_demand$y
 
+
+#d. environmental damage from gasoline
+
+#quantity at new equilirium
+int_tax_half_agg_demand_q <- int_tax_half_agg_demand$x
+
+# environmental cost at new equilibrium
+
+tec_half_demand <- int_tax_half_agg_demand_q*2
+
+tec_half_demand
 
 ```
 
