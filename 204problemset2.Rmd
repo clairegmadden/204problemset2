@@ -353,7 +353,7 @@ int_low_2tax_p <- int_low_2tax$y
 base_low_2tax <- b_low - int_low_2tax_p
 height_low_2tax <- int_low_2tax_q
 
-cs_low_2tax <- ((1/2)*base_low_2tax*height_low_2tax) - tec_half_demand
+cs_low_2tax <- ((1/2)*base_low_2tax*height_low_2tax) - tec_2tax
 
 cs_low_2tax
 
