@@ -317,8 +317,8 @@ tec_tax0.5
 
 #g. tax revenue
 
-tax_rev_tax <- tax0.5_q*0.5
-tax_rev_tax
+tax_rev <- tax0.5_q*0.5
+tax_rev
 
 
 ```
@@ -328,6 +328,18 @@ a. Overall welfare of “High” income consumers
 b. Overall welfare of “Low” income consumers
 c. Gas producers
 
+```{r}
+
+#tax of $2
+
+supply_2tax <- function(x){supply*x + 2}
+
+
+
+
+
+
+```
 
 
 
@@ -392,6 +404,27 @@ tec_half_demand
 
 6. Using these numbers, which has a bigger impact on environmental quality, a $2.00/gal. gas tax or the invention of electric cars? Provide your evidence.
 
+```{r}
+
+#intersect of supply with $2 tax and agg demand
+
+int_supply_2tax_agg <- curve_intersect(supply_2tax, agg_demand, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_supply_2tax_agg_q <- int_supply_2tax_agg$x
+
+#environmental cost with $2 tax
+
+tec_2tax <- int_supply_2tax_agg_q*2
+
+tec_2tax
+#487361.2
+
+#environmental cost with electric cars
+
+tec_half_demand
+#255448.9
+
+```
 
 
 
