@@ -124,20 +124,10 @@ kink_q <- kink$x
 
 kink_p <- kink$y
 
-<<<<<<< HEAD
 #Sam Update: intersection of agg demand and supply - carry over price to find quantity for Qh and Ql 
 
-#intersection of supply and high demand
-int_supp_highd <- curve_intersect(supply_curve, demand_high, empirical = FALSE, domain = c(min(x_range), max(x_range)))
 
-int_supp_highd
-
-int_supp_highd_q <- int_supp_highd$x
-
-int_supp_highd_p <- int_supp_highd$y
-=======
 #intersection of supply and agg demand
->>>>>>> adddb24c103d2389b064748cfb96a3f1cdb0a90f
 
 int_supp_aggd <- curve_intersect(supply_curve, agg_demand, empirical = FALSE, domain = c(min(x_range), max(x_range)))
 
@@ -167,9 +157,9 @@ int_msc_aggd <- curve_intersect(msc, agg_demand, empirical = FALSE, domain = c(m
 int_msc_aggd
                                 
 int_msc_aggd_q <- int_msc_aggd$x
-
+#243680.6
 int_msc_aggd_p <- int_msc_aggd$y
-
+#6.5596
 
 
 
@@ -386,11 +376,8 @@ d. Environmental damage from gasoline
 
 ```{r}
 
-<<<<<<< HEAD
-#We are 
-=======
 # considering chance WITH $0.5 tax 
->>>>>>> adddb24c103d2389b064748cfb96a3f1cdb0a90f
+
 #lower demand curves by half vertically
 
 half_demand_high <- function(x){a_high*x + 0.5*b_high}
