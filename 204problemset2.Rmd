@@ -426,7 +426,6 @@ d. Environmental damage from gasoline
 
 ```{r}
 
-# considering chance WITH $0.5 tax 
 
 #lower demand curves by half vertically
 
@@ -438,7 +437,7 @@ half_agg_demand <- function(x){a_agg1*x + 0.5*b_agg1}
 
 #intersect new agg demand and supply with tax
 
-int_tax_half_agg_demand <- curve_intersect(supply_tax, half_agg_demand, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+int_tax_half_agg_demand <- curve_intersect(supply_curve, half_agg_demand, empirical = FALSE, domain = c(min(x_range), max(x_range)))
 
 int_tax_half_agg_demand
 
@@ -448,16 +447,18 @@ tax_half_agg_demand_p
 
 tax_half_agg_demand_q <- int_tax_half_agg_demand$x
 
+tax_half_agg_demand_q
+
 #a. gas consumption by high demand
 
-half_high_demand <- ((2.8899-(0.5*b_high))/a_high)
+half_high_demand <- ((2.5-(0.5*b_high))/a_high)
 
 half_high_demand
 
 
 #b. gas consumption by low demand
 
-half_low_demand <- ((2.8899-(0.5*b_low))/a_low)
+half_low_demand <- ((2.5-(0.5*b_low))/a_low)
 half_low_demand
 
 #c. gas price at new equilibrium - where aggregate demand (reduced by half) intersects supply with tax
