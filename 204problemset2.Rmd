@@ -67,8 +67,6 @@ a_low1 <- (1/a_low)
 b_low1 <- (-b_low/a_low)
 
 
-
-
 #combine high and low variables to get aggregate 
 a_agg <- a_high1 + a_low1
 b_agg <- b_high1 + b_low1
@@ -124,35 +122,27 @@ kink_q <- kink$x
 
 kink_p <- kink$y
 
-#intersection of supply and high demand
-int_supp_highd <- curve_intersect(supply_curve, demand_high, empirical = FALSE, domain = c(min(x_range), max(x_range)))
-
-int_supp_highd
-
-int_supp_highd_q <- int_supp_highd$x
-
-int_supp_highd_p <- int_supp_highd$y
-
-#intersection of supply and low demand
-
-int_supp_lowd <- curve_intersect(supply_curve, demand_low, empirical = FALSE, domain = c(min(x_range), max(x_range)))
-
-int_supp_lowd
-
-int_supp_lowd_q <- int_supp_lowd$x
-
-int_supp_lowd_p <- int_supp_lowd$y
-
-
 #intersection of supply and agg demand
 
 int_supp_aggd <- curve_intersect(supply_curve, agg_demand, empirical = FALSE, domain = c(min(x_range), max(x_range)))
 
 int_supp_aggd
 
-int_supp_highd_q <- int_supp_aggd$x
+int_supp_aggd_q <- int_supp_aggd$x
 
-int_supp_highd_p <- int_supp_aggd$y
+int_supp_aggd_p <- int_supp_aggd$y
+
+# low quantity at equlibrium price
+
+low_q <- ((5-b_low)/a_low)
+
+low_q
+
+# high quantity at equlibrium price
+
+high_q <- ((5-b_high)/a_high)
+
+high_q
 
 
 #intersection of msc and agg demand
@@ -174,38 +164,25 @@ int_msc_aggd_p <- int_msc_aggd$y
 ```{r}
 #low demand benefit under status quo
 
-base_cs_low <- b_low - int_supp_lowd_p
-height_cs_low <- int_supp_lowd_q
+base_cs_low <- b_low - int_supp_aggd_p
+height_cs_low <- low_q
 
 cs_low <- (1/2)*base_cs_low*height_cs_low
 
 cs_low
 
 
-base_ps_low <- int_supp_lowd_p
-height_ps_low <- int_supp_lowd_q
-
-ps_low <- (1/2)*base_ps_low*height_ps_low
-
-ps_low
-
 
 #high demand benefit under status quo
 
-base_cs_high <- b_high - int_supp_highd_p
-height_cs_high <- int_supp_highd_q
+base_cs_high <- b_high - int_supp_aggd_p
+height_cs_high <- high_q
 
 cs_high <- (1/2)*base_cs_high*height_cs_high
 
 cs_high
 
 
-base_ps_high <- int_supp_highd_p
-height_ps_high <- int_supp_highd_q
-
-ps_high <- (1/2)*base_ps_high*height_ps_high
-
-ps_high
 
 #aggregate benefit under status quo
 
@@ -213,7 +190,12 @@ cs_agg <- cs_high + cs_low
 
 cs_agg
 
-ps_agg <- ps_high + ps_low
+# producer surplus
+
+base_ps <- int_supp_aggd_q
+height_ps <- int_supp_aggd_p
+
+ps_agg <- (1/2)*base_ps*height_ps
 
 ps_agg
 
@@ -223,7 +205,7 @@ ps_agg
 ```{r}
 #environmental cost under status quo
 
-base_tec <- int_supp_highd_q
+base_tec <- int_supp_aggd_q
 height_tec <- 2
 
 tec <- base_tec*height_tec
@@ -267,33 +249,31 @@ tax0.5_q <- q_tax$x
 #b. price of gasoline with tax
 tax0.5_p <- q_tax$y
 
+tax0.5_p
+
+# low quantity with tax
+
+low_q_tax <- ((5.3899-b_low)/a_low)
+
+# high quantity with tax
+
+high_q_tax <- ((5.3899-b_high)/a_high)
+
+high_q_tax
+
+
 #c. high cs
 
-int_tax_high <- curve_intersect(supply_tax, demand_high, empirical = FALSE, domain = c(min(x_range), max(x_range)))
-
-int_tax_high
-
-int_tax_high_q <- int_tax_high$x
-int_tax_high_p <- int_tax_high$y
-
-base_high_tax0.5 <- int_tax_high_q
-height_high_tax0.5 <- b_high - int_tax_high_p
+base_high_tax0.5 <- high_q_tax
+height_high_tax0.5 <- b_high - tax0.5_p
 
 cs_tax_high <- (1/2)*base_high_tax0.5*height_high_tax0.5
 cs_tax_high
 
 #d. low cs
 
-int_tax_low <- curve_intersect(supply_tax, demand_low, empirical = FALSE, domain = c(min(x_range), max(x_range)))
-
-int_tax_low
-
-int_tax_low_q <- int_tax_low$x
-int_tax_low_p <- int_tax_low$y
-
-
-base_low_tax0.5 <- int_tax_low_q
-height_low_tax0.5 <- b_low - int_tax_low_p
+base_low_tax0.5 <- low_q_tax
+height_low_tax0.5 <- b_low - tax0.5_p
 
 cs_tax_low <- (1/2)*base_low_tax0.5*height_low_tax0.5
 cs_tax_low
@@ -319,7 +299,9 @@ tax_rev
 
 ```
 
-4. Now, assume that all revenue from a tax will be used for infrastructure repairs, and that the benefit of this is proportional to the amount you drive (i.e. to the gas you consume). Also assume that “Low” income consumers bear all environmental costs. For a range of gas taxes (ranging from $0 - $5.00/gal), calculate the effects of the tax on:
+4. Now, assume that all revenue from a tax will be used for infrastructure repairs, and that the benefit of this is proportional to the amount you drive (i.e. to the gas you consume). tax revenue is considered benefit for each group - +quantity of gas consumed * tax 
+
+Also assume that “Low” income consumers bear all environmental costs. For a range of gas taxes (ranging from $0 - $5.00/gal), calculate the effects of the tax on:
 a. Overall welfare of “High” income consumers
 b. Overall welfare of “Low” income consumers
 c. Gas producers
