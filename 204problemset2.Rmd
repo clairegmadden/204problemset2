@@ -105,7 +105,10 @@ allcurves <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
   stat_function(fun = supply_curve, color = "olivedrab4")+
   scale_y_continuous(limits = c(0,30), expand = c(0,0))+
   scale_x_continuous(limits = c(0,350000), expand = c(0,0))+
-  theme_bw()
+  theme_bw()+
+  labs(title = "Gasoline Market in France",
+       x = "Gallons of Gasoline",
+       y = "Price of Gasoline ($)")
 
 
 allcurves
