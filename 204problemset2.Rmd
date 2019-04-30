@@ -103,7 +103,7 @@ allcurves <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
   stat_function(fun = mec, geom="line", aes(colour="marginal external cost"))+
   stat_function(fun = msc, geom="line", aes(colour="marginal social cost"))+
   stat_function(fun = supply_curve, geom="line", aes(colour="supply"))+
-  scale_y_continuous(limits = c(0,30), expand = c(0,0))+
+  scale_y_continuous(limits = c(0,25), expand = c(0,0))+
   scale_x_continuous(limits = c(0,350000), expand = c(0,0))+
   theme_bw()+
   labs(title = "Gasoline Market in France",
@@ -372,6 +372,20 @@ cs_low_2tax <- ((1/2)*base_low_2tax*height_low_2tax) + (2*low_2tax_q) - tec_2tax
 
 cs_low_2tax
 
+# producer surplus
+
+base_ps_2tax <- int_agg_2tax_q
+height_ps_2tax <- int_agg_2tax_p - 2
+
+ps_2tax <- (1/2)*base_ps_2tax*height_ps_2tax
+ps_2tax
+
+# tax revenue $2 tax
+
+rev_2tax <- int_agg_2tax_q*2
+rev_2tax
+
+
 
 #tax of $5
 
@@ -412,6 +426,14 @@ base_low_5tax <- b_low - int_agg_5tax_p
 height_low_5tax <- low_5tax_q
 
 
+# producer surplus
+base_ps_5tax <- int_agg_5tax_q
+height_ps_5tax <- int_agg_5tax_p - 5
+
+ps_5tax <- (1/2)*base_ps_5tax*height_ps_5tax
+ps_5tax
+
+
 #environmental cost 
 tec_5tax <- int_agg_5tax_q*2
 
@@ -421,6 +443,13 @@ tec_5tax
 cs_low_5tax <- ((1/2)*base_low_5tax*height_low_5tax) + (2*low_5tax_q) - tec_5tax
 
 cs_low_5tax
+
+
+# tax revenue $5 tax
+
+rev_5tax <- int_agg_5tax_q*5
+rev_5tax
+
 
 ```
 
