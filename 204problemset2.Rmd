@@ -312,30 +312,48 @@ c. Gas producers
 
 supply_2tax <- function(x){supply*x + 2}
 
+int_agg_2tax<- curve_intersect(supply_2tax, agg_demand, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_agg_2tax
+
+int_agg_2tax_p <- int_agg_2tax$y
+
+int_agg_2tax_q <- int_agg_2tax$x
+
 #wellfare high income
+# high demand quantity at $2 tax price
+high_2tax_q <- ((6.5596 - b_high)/a_high)
 
-int_high_2tax <- curve_intersect(supply_2tax, demand_high, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+high_2tax_q
 
-int_high_2tax_q <- int_high_2tax$x
-int_high_2tax_p <- int_high_2tax$y
 
-base_high_2tax <- b_high - int_high_2tax_p
-height_high_2tax <- int_high_2tax_q
+base_high_2tax <- b_high - int_agg_2tax_p
+height_high_2tax <- high_2tax_q
 
-cs_high_2tax <- (1/2)*base_high_2tax*height_high_2tax
+#high cs
+cs_high_2tax <- ((1/2)*base_high_2tax*height_high_2tax)+(2*high_2tax_q)
 
 cs_high_2tax
 
+
 #wellfare low income 
-int_low_2tax <- curve_intersect(supply_2tax, demand_low, empirical = FALSE, domain = c(min(x_range), max(x_range)))
 
-int_low_2tax_q <- int_low_2tax$x
-int_low_2tax_p <- int_low_2tax$y
+#low demand quantity at $2 tax price
+low_2tax_q <- ((6.5596 - b_low)/a_low)
 
-base_low_2tax <- b_low - int_low_2tax_p
-height_low_2tax <- int_low_2tax_q
+low_2tax_q
 
-cs_low_2tax <- ((1/2)*base_low_2tax*height_low_2tax) - tec_2tax
+base_low_2tax <- b_low - int_agg_2tax_p
+height_low_2tax <- low_2tax_q
+
+
+#environmental cost 
+tec_2tax <- int_agg_2tax_q*2
+
+tec_2tax
+
+# low cs 
+cs_low_2tax <- ((1/2)*base_low_2tax*height_low_2tax) + (2*low_2tax_q) - tec_2tax
 
 cs_low_2tax
 
