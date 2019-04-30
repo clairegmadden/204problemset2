@@ -135,20 +135,22 @@ int_supp_aggd <- curve_intersect(supply_curve, agg_demand, empirical = FALSE, do
 int_supp_aggd
 
 int_supp_aggd_q <- int_supp_aggd$x
+# aggregate quantity = 267217.1
 
 int_supp_aggd_p <- int_supp_aggd$y
+# price = $5
 
 # low quantity at equlibrium price
-
 low_q <- ((5-b_low)/a_low)
 
 low_q
+#low income quantity = 125377.6
 
 # high quantity at equlibrium price
-
 high_q <- ((5-b_high)/a_high)
 
 high_q
+#high income quantity = 141839.5
 
 
 #intersection of msc and agg demand
@@ -158,9 +160,10 @@ int_msc_aggd <- curve_intersect(msc, agg_demand, empirical = FALSE, domain = c(m
 int_msc_aggd
                                 
 int_msc_aggd_q <- int_msc_aggd$x
-#243680.6
+#aggregate quantity at msc = 243680.6
+
 int_msc_aggd_p <- int_msc_aggd$y
-#6.5596
+# price at msc = $6.5596
 
 
 
@@ -176,7 +179,7 @@ height_cs_low <- low_q
 cs_low <- (1/2)*base_cs_low*height_cs_low
 
 cs_low
-
+#consumer surplus low income = $1065137
 
 
 #high demand benefit under status quo
@@ -187,7 +190,7 @@ height_cs_high <- high_q
 cs_high <- (1/2)*base_cs_high*height_cs_high
 
 cs_high
-
+#consumer surplus high income = $1304316
 
 
 #aggregate benefit under status quo
@@ -195,6 +198,7 @@ cs_high
 cs_agg <- cs_high + cs_low
 
 cs_agg
+#aggregate consumer surplus = $2369453
 
 # producer surplus
 
