@@ -97,18 +97,20 @@ msc <- function(x){supply*x + 2}
 
 #graph both demand functions on the same axes
 allcurves <- ggplot(data.frame(x = c(7000, 500000)), aes(x = x)) +
-  stat_function(fun = demand_low, color = "cadetblue4") +
-  stat_function(fun = demand_high, color = "orchid4")+
-  stat_function(fun = agg_demand, color = "tomato3")+
-  stat_function(fun = mec, color = "turquoise")+
-  stat_function(fun = msc, color = "gold")+
-  stat_function(fun = supply_curve, color = "olivedrab4")+
+  stat_function(fun = demand_low, geom="line", aes(colour="low income demand")) +
+  stat_function(fun = demand_high, geom="line", aes(colour="high income demand"))+
+  stat_function(fun = agg_demand, geom="line", aes(colour="aggregate demand"))+
+  stat_function(fun = mec, geom="line", aes(colour="marginal external cost"))+
+  stat_function(fun = msc, geom="line", aes(colour="marginal social cost"))+
+  stat_function(fun = supply_curve, geom="line", aes(colour="supply"))+
   scale_y_continuous(limits = c(0,30), expand = c(0,0))+
   scale_x_continuous(limits = c(0,350000), expand = c(0,0))+
   theme_bw()+
   labs(title = "Gasoline Market in France",
        x = "Gallons of Gasoline",
-       y = "Price of Gasoline ($)")
+       y = "Price of Gasoline ($)")+
+  scale_colour_manual("Legend", values = c("cadetblue4","orchid4","tomato3", "turquoise", "gold", "olivedrab4"), breaks = c("low income demand", "high income demand", "aggregate demand", "marginal external cost", "marginal social cost", "supply"))
+
 
 
 allcurves
