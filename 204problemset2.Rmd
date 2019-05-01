@@ -323,6 +323,77 @@ c. Gas producers
 
 ```{r}
 
+#tax of $0.5
+
+supply_0.5tax <- function(x){supply*x + 0.5}
+
+int_agg_0.5tax<- curve_intersect(supply_0.5tax, agg_demand, empirical = FALSE, domain = c(min(x_range), max(x_range)))
+
+int_agg_0.5tax
+
+int_agg_0.5tax_p <- int_agg_0.5tax$y
+
+int_agg_0.5tax_q <- int_agg_0.5tax$x
+
+int_agg_0.5tax_q
+int_agg_0.5tax_p
+
+#wellfare high income
+# high demand quantity at $0.5 tax price
+high_0.5tax_q <- ((5.3899 - b_high)/a_high)
+
+high_0.5tax_q
+
+
+base_high_0.5tax <- b_high - int_agg_0.5tax_p
+height_high_0.5tax <- high_0.5tax_q
+
+#high cs
+cs_high_0.5tax <- ((1/2)*base_high_0.5tax*height_high_0.5tax)+(0.5*high_0.5tax_q)
+
+cs_high_0.5tax
+
+
+#wellfare low income 
+
+#low demand quantity at $0.5 tax price
+low_0.5tax_q <- ((5.3899 - b_low)/a_low)
+
+low_0.5tax_q
+
+base_low_0.5tax <- b_low - int_agg_0.5tax_p
+height_low_0.5tax <- low_0.5tax_q
+
+
+
+# producer surplus
+base_ps_0.5tax <- int_agg_0.5tax_q
+height_ps_0.5tax <- int_agg_0.5tax_p - 0.5
+
+ps_0.5tax <- (1/2)*base_ps_0.5tax*height_ps_0.5tax
+ps_0.5tax
+
+
+#environmental cost 
+tec_0.5tax <- int_agg_0.5tax_q*2
+
+tec_0.5tax
+
+# low cs 
+cs_low_0.5tax <- ((1/2)*base_low_0.5tax*height_low_0.5tax) + (0.5*low_0.5tax_q) - tec_0.5tax
+
+cs_low_0.5tax
+
+
+# tax revenue $0.5 tax
+
+rev_0.5tax <- int_agg_0.5tax_q*0.5
+rev_0.5tax
+
+
+
+#################
+
 #tax of $2
 
 supply_2tax <- function(x){supply*x + 2}
@@ -410,7 +481,7 @@ base_high_5tax <- b_high - int_agg_5tax_p
 height_high_5tax <- high_5tax_q
 
 #high cs
-cs_high_5tax <- ((1/2)*base_high_5tax*height_high_5tax)+(2*high_5tax_q)
+cs_high_5tax <- ((1/2)*base_high_5tax*height_high_5tax)+(5*high_5tax_q)
 
 cs_high_5tax
 
@@ -440,7 +511,7 @@ tec_5tax <- int_agg_5tax_q*2
 tec_5tax
 
 # low cs 
-cs_low_5tax <- ((1/2)*base_low_5tax*height_low_5tax) + (2*low_5tax_q) - tec_5tax
+cs_low_5tax <- ((1/2)*base_low_5tax*height_low_5tax) + (5*low_5tax_q) - tec_5tax
 
 cs_low_5tax
 
